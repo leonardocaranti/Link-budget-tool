@@ -9,9 +9,10 @@ def val(value_dB,unit):
     return value
 
 #Constants
-Re = 6371*1000      #[m]
-k = 1.38*10e-23     #[J/K]
-c = 3*10e8          #[m/s]
+Re = 6371*1000   #[m]
+k = 1.38e-23     #[J/K]
+c = 3e8          #[m/s]
+
 
 # Inputs
 P = decibel(float(input("Transmitter power [W] = ")),1)                             #Power in dBW
@@ -25,10 +26,11 @@ L_r = decibel(float(input("Reception feeder loss = ")),1)                       
 T_s = decibel(float(input("System temperature [K] = ")),1)                          #System temperature in dBK
 R = decibel(float(input("Data rate [bit/s] = ")),1)                                 #Data rate in dB(bit/s)
 k_ = decibel(float(k),1)                                                            #Bolztmann constant in dB(J/K)
+L_i = 2
 
 #Signal to noise ratio
-SNR = P + L_l + G_t + L_a + G_r + L_s + L_pr + L_r - T_s - R - k_
-print("SNR in [dB]", round(SNR,2),)
+SNR = P + L_l + G_t + L_a + G_r + L_s + L_pr + L_r - T_s - R - k_ - L_i
+print("SNR in [dB]", round(SNR,2))
 SNR = val(SNR,1)
-print("SNR in [units]", round(SNR,2),)
+print("SNR in [units]", round(SNR,2))
 
