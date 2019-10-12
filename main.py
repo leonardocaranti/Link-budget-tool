@@ -16,31 +16,33 @@ quest = str(input("Choose mission: \n"
               "Mission number:"))
 print()
 
+
 #Inputs for downlink
 if quest == "1":
-    SNR_values = Earth3U_CubeSat()
+    SNR_values_down, SNR_values_up = Earth3U_CubeSat()
 
 if quest == "2":
-    SNR_values = Moon12U_CubeSat()
+    SNR_values_down, SNR_values_up = Moon12U_CubeSat()
 
 if quest == "3":
-    SNR_values = Mars6U_CubeSat()
+    SNR_values_down, SNR_values_up = Mars6U_CubeSat()
 
 if quest == "4":
-    SNR_values = Venus_explorer()
+    SNR_values_down, SNR_values_up = Venus_explorer()
 
 if quest == "5":
-    SNR_values = Europa_imager()
+    SNR_values_down, SNR_values_up = Europa_imager()
 
 if quest == "6":
-    SNR_values = pers_miss()
-
+    SNR_values_down, SNR_values_up = pers_miss()
 
 
 #Signal to noise ratio for downlink
-SNR = sum(SNR_values)
-print()
-print("Downlink SNR in [dB]", round(SNR,5))
-SNR = val(SNR,1)
-print("Downlink SNR in [units]", round(SNR,5))
+SNR_down, SNR_up = sum(SNR_values_down), sum(SNR_values_up)
+SNR_down_units, SNR_up_units = val(SNR_down,1), val(SNR_up,1)
 
+print()
+print("Downlink SNR in [dB]", round(SNR_down,5))
+print("Uplink SNR in [dB]", round(SNR_up,5))
+print("Downlink SNR in [units]", round(SNR_down_units,5))
+print("Uplink SNR in [units]", round(SNR_up_units,5))
