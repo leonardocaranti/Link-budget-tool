@@ -17,7 +17,7 @@ quest = str(input("Choose mission: \n"
 print()
 
 
-#Inputs for downlink
+#Inputs 
 if quest == "1":
     SNR_values_down, SNR_values_up = Earth3U_CubeSat()
 
@@ -37,7 +37,7 @@ if quest == "6":
     SNR_values_down, SNR_values_up = pers_miss()
 
 
-#Signal to noise ratio for downlink
+#Signal to noise ratios
 SNR_down, SNR_up = sum(SNR_values_down), sum(SNR_values_up)
 SNR_down_units, SNR_up_units = val(SNR_down,1), val(SNR_up,1)
 
