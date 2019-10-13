@@ -15,7 +15,7 @@ def Earth3U_CubeSat():
     G_r_up = decibel(pi*pi*D_sc*D_sc*eff_sc*f_up*f_up/(c*c), 1)                         #Transmitter antenna gain in dB for uplink
 
     print("Transmission frequency =", f_down/(10**9), "[GHz]")
-    L_a = decibel(float(input("Transmission path loss (estimated) = ")), 1)             #Transmission path loss in dB
+    L_a = float(input("Transmission path loss (estimated) [dB] = "))                    #Transmission path loss in dB
 
     D_gr = 1                                                                            #Ground antenna diameter in m
     eff_gr = 0.55                                                                       #Assumed spacecraft antenna efficiency
@@ -28,8 +28,10 @@ def Earth3U_CubeSat():
     L_s_up = decibel((c / (f_up * 4 * pi * S)) ** 2, 1)                                 #Space loss in dB for uplink
 
     e_t = 5                                                                             #Spacecraft pointing offset angle in deg
-    L_pr_down = -12 * (e_t * (f_down / 10 ** 9) * D_sc / 21) ** 2                       #Spacecraft antenna pointing loss in dB for downlink
-    L_pr_up = -12 * (e_t * (f_up / 10 ** 9) * D_gr / 21) ** 2                           #Spacecraft antenna pointing loss in dB for uplink
+    L_pr_down_sc = -12 * (e_t * (f_down / 10 ** 9) * D_sc / 21) ** 2                    #Spacecraft antenna pointing loss in dB for downlink
+    L_pr_down_gr = -12 * (0.1) ** 2                                                     #Ground antenna pointing loss in dB for downlink
+    L_pr_up_sc = -12 * (e_t * (f_up / 10 ** 9) * D_sc / 21) ** 2                        #Spacecraft antenna pointing loss in dB for uplink
+    L_pr_up_gr = -12 * (0.1) ** 2                                                       #Ground antenna pointing loss in dB for uplink
 
     L_r = decibel(0.7, 1)                                                               #Loss factor receiver in dB
 
@@ -61,5 +63,6 @@ def Earth3U_CubeSat():
 
     L_i = 0                                                                             #Implementation losses in dB
 
-    return [P_down, L_l, G_t_down, L_a, G_r_down, L_s_down, L_pr_down, L_r, -T_s_down, -R_down, -k_, -L_i], \
-           [P_up, L_l, G_t_up, L_a, G_r_up, L_s_up, L_pr_up, L_r, -T_s_up, -R_up, -k_, -L_i]
+    return [P_down, L_l, G_t_down, L_a, G_r_down, L_s_down, L_pr_down_sc + L_pr_down_gr, L_r, -T_s_down, -R_down, -k_,
+            -L_i], \
+           [P_up, L_l, G_t_up, L_a, G_r_up, L_s_up, L_pr_up_gr + L_pr_up_sc, L_r, -T_s_up, -R_up, -k_, -L_i]
